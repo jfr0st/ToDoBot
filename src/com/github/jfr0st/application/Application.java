@@ -13,6 +13,8 @@ import org.telegram.telegrambots.meta.generics.WebhookBot;
 
 
 public class Application  extends TelegramLongPollingBot {
+
+    final static String START_CONST = "/start";
     public static void main(String[] args) {
         ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
@@ -23,25 +25,25 @@ public class Application  extends TelegramLongPollingBot {
         }
     }
 
-    public void sendMsg(Message message, String text){
+    public void replay(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
-        try{
+        try {
             execute(sendMessage);
-        }catch (TelegramApiException e){
+        } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
 
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
-        if(message != null && message.hasText()){
+        if(message != null && message.hasText()) {
             switch (message.getText()){
-                case "/start":
-                    sendMsg(message, "я гадал, что сломается раньше, твой дух или твое тело");
+                case START_CONST:
+                    replay(message, "я гадал, что сломается раньше, твой дух или твое тело");
                     break;
                 default:
             }

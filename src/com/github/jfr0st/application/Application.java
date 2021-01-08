@@ -1,6 +1,5 @@
 package com.github.jfr0st.application;
 
-
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -8,13 +7,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-import org.telegram.telegrambots.meta.generics.WebhookBot;
-
 
 public class Application  extends TelegramLongPollingBot {
 
-    final static String START_CONST = "/start";
+    final static String START_COMMAND = "/start";
+
     public static void main(String[] args) {
         ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
@@ -41,8 +38,8 @@ public class Application  extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
-            switch (message.getText()){
-                case START_CONST:
+            switch (message.getText()) {
+                case START_COMMAND:
                     replay(message, "я гадал, что сломается раньше, твой дух или твое тело");
                     break;
                 default:

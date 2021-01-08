@@ -1,2 +1,3 @@
-/ProjectBot.iml
-/.idea/
+*.iml
+.idea
+target/
